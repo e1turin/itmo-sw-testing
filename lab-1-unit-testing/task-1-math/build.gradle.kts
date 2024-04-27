@@ -4,7 +4,3 @@ plugins {
 
 group = "io.github.e1turin"
 version = libs.versions.lab.get()
-
-dependencies {
-
-}
