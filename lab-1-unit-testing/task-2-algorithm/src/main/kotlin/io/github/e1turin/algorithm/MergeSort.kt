@@ -1,8 +1,5 @@
 package io.github.e1turin.algorithm
 
-import io.github.e1turin.collection.DequeStack
-import io.github.e1turin.collection.Stack
-
 /*
 public sealed class Part<T: Comparable<T>>(
     public val start: T,
