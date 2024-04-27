@@ -2,7 +2,7 @@ package io.github.e1turin.math
 
 import kotlin.math.pow
 
-fun arcsin(x: Double): Double {
+public fun arcsin(x: Double): Double {
     val eps = 1E-9
     val res = tailorArcsin(x, eps)
     return res
