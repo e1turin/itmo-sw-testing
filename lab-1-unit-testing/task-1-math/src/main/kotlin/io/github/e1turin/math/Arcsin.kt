@@ -1,10 +1,10 @@
 package io.github.e1turin.math
 
+import kotlin.math.abs
 import kotlin.math.pow
 
 public fun arcsin(x: Double): Double {
-    val eps = 1E-9
-    val res = tailorArcsin(x, eps)
+    val res = tailorArcsin(x, eps = 1E-12)
     return res
 }
 
@@ -27,12 +27,14 @@ public fun arcsin(x: Double): Double {
 
 private fun tailorArcsin(x: Double, eps: Double = 1E-9): Double {
     require(x in -1.0..1.0) { "Arcsin domain is range -1.0..1.0 but given x=$x is out of range." }
-    require(eps >= 1E-9) { "Eps must be positive and not very small, current eps is $eps." }
+    require(eps >= 1E-12) { "Eps must be positive and not very small, current eps is $eps." }
+
+    val mirror = if (x < 0) -1 else 1
 
     var n: Double = 1.0
-    var tmp: Double = x
+    var tmp: Double = x * mirror
     var rem: Double = 1.0
-    var sum: Double = x
+    var sum: Double = x * mirror
 
     while (rem > eps) {
         tmp = tmp * (2 * n - 1) * x.pow(2) / (2 * n)
@@ -41,5 +43,5 @@ private fun tailorArcsin(x: Double, eps: Double = 1E-9): Double {
         n++
     }
 
-    return sum
+    return sum * mirror
 }
