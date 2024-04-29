@@ -12,6 +12,7 @@ class Engine {               <<Зажужжал мотор.>>
 }
 
 class Noize {
+    - volume: Number
     + makeLouder: () -> Number <<Тоненький свист перерос в рев воздуха,>>
 }
 
