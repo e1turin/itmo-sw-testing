@@ -3,10 +3,8 @@ package io.github.e1turin
 import io.github.e1turin.math.arcsin
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.core.spec.style.StringSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.ranges.shouldBeIn
-import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.double
 import io.kotest.property.checkAll
