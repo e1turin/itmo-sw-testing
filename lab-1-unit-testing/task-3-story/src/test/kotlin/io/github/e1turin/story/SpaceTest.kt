@@ -9,7 +9,6 @@ import io.kotest.property.checkAll
 class SpaceTest : StringSpec({
     "collects one thing once" {
         Arb.int(min = THIN_WHISTLE_VOLUME, max = ROAR_VOLUME).checkAll { i ->
-            var cntUnstatedNoiseSideEffect = 0
             var cntUnstatedSideEffect = 0
             var cntStatedSideEffect = 0
             val effect = { thing: Any -> ++cntStatedSideEffect }
