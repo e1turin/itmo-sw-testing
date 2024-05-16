@@ -7,9 +7,18 @@
 $$
 y = 
 \begin{cases}
-(((cos(x) - csc(x)) ^ 2) + cos(x)), & \text{ where } x \leq 0\\
-(((((log_3(x) - log_3(x)) * log_10(x)) ^ 3) / ln(x)) / (((log_2(x) - (ln(x) + log_10(x))) - log_10(x)) / (log_5(
-x) + log_5(x)))), & \text{ where } x > 0
+   (((\cos(x) - \csc(x)) ^ 2) + \cos(x)), & \text{ при } x \leq 0 \\
+   (
+      \cfrac{  
+         \cfrac { ( (\log_3(x) - \log_3(x)) \cdot \log_10(x) ) ^ 3 }
+                { \ln(x) }
+      }
+      { \cfrac{
+               (\log_2(x) - (\ln(x) + \log_10(x))) - \log_10(x)
+            }
+            {\log_5(x) + \log_5(x)}
+      }
+   ), & \text{ при } x > 0
 \end{cases}
 $$
 

@@ -1,0 +1,24 @@
+[versions]
+
+lab = "0.0.1"
+kotlin = "1.9.23"
+kotest = "5.8.0"
+
+
+[libraries]
+
+# Kotlin Plugin
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+# Kotest
+kotest-framework = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
+
+
+[bundles]
+kotest = ["kotest-framework", "kotest-assertions", "kotest-property"]
+
+
+[plugins]
+
