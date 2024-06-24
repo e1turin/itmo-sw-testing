@@ -18,6 +18,9 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("io.kotest:kotest-property:$kotestVersion")
     testImplementation("io.kotest:kotest-framework-datatest:$kotestVersion")
+
+    val mockkVersion = "1.13.11"
+    testImplementation("io.mockk:mockk:${mockkVersion}")
 }
 
 kotlin {
