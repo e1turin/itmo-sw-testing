@@ -8,7 +8,7 @@ import io.kotest.property.checkAll
 
 class LnTest : StringSpec({
     "compare with golden implementation" {
-        Arb.double(min=0.0).checkAll { d ->
+        Arb.double(min=-1.0, max = 1e3).checkAll { d ->
             val test = ln(d, ERROR_RATE)
             val gold = kotlin.math.ln(d)
             val diff = test - gold

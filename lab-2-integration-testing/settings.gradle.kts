@@ -20,5 +20,6 @@ plugins {
 rootProject.name = "lab-2-integration-testing"
 
 include(
-    ":base-functions"
+    ":base-functions",
+    ":equation"
 )
