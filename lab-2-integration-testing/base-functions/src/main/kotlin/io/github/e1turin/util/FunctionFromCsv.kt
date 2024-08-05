@@ -5,7 +5,7 @@ import java.io.File
 public class FunctionFromCsv(
     private val file: File
 ): (Double) -> Double {
-    private val values: Map<Double, Double> = loadValues()
+    private val values: Map<Double, Double> by lazy { loadValues() }
 
     override fun invoke(x: Double): Double {
         return values[x] ?: Double.NaN
