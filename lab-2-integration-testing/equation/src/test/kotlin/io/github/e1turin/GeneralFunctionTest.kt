@@ -16,6 +16,35 @@ import kotlin.math.*
 
 class GeneralFunctionTest : StringSpec({
 
+    val goldenLn = ::ln
+    val goldenSin = ::sin
+    val goldenLog2 = ::log2
+    val goldenLog3 = { x: Double -> log(x, 3.0) }
+    val goldenLog5 = { x: Double -> log(x, 5.0) }
+    val goldenLog10 = ::log10
+    val goldenCos = ::cos
+    val goldenCsc = { x: Double -> 1 / sin(x) }
+
+    val goldenGeneralFunction = GeneralFunction(
+        ln = goldenLn,
+        sin = goldenSin,
+        log2 = goldenLog2,
+        log3 = goldenLog3,
+        log5 = goldenLog5,
+        log10 = goldenLog10,
+        cos = goldenCos,
+        csc = goldenCsc,
+    )
+
+    val testingLn = { x: Double -> io.github.e1turin.logarithmic.ln(x, ERROR_RATE) }
+    val testingSin = { x: Double -> io.github.e1turin.trigonometric.sin(x, ERROR_RATE) }
+    val testingLog2 = { x: Double -> io.github.e1turin.logarithmic.log2(x, ERROR_RATE) }
+    val testingLog3 = { x: Double -> io.github.e1turin.logarithmic.log3(x, ERROR_RATE) }
+    val testingLog5 = { x: Double -> io.github.e1turin.logarithmic.log5(x, ERROR_RATE) }
+    val testingLog10 = { x: Double -> io.github.e1turin.logarithmic.log10(x, ERROR_RATE) }
+    val testingCos = { x: Double -> io.github.e1turin.trigonometric.cos(x, ERROR_RATE) }
+    val testingCsc = { x: Double -> io.github.e1turin.trigonometric.csc(x, ERROR_RATE) }
+
     "Hand test strange values" {
         val func = GeneralFunction()
         func(1.0) shouldBe Double.NaN
@@ -47,25 +76,28 @@ class GeneralFunctionTest : StringSpec({
         )
     }
 
-    "Test golden impl" {
-        val generalFunction = GeneralFunction(
-            ln = ::ln,
-            sin = ::sin,
-            log2 = ::log2,
-            log3 = { x -> log(x, 3.0) },
-            log5 = { x -> log(x, 5.0) },
-            log10 = ::log10,
-            cos = ::cos,
-            csc = { x -> 1 / sin(x) },
-        )
-
+    "Dump golden impl values" {
         val file = File("src/test/resources/GeneralFunction_golden.csv")
             .also { it.createNewFile() }
 
         logCompleteFunctionToCsv(
             file = file,
             functionName = "generalFunction",
-            function = generalFunction
+            function = goldenGeneralFunction
+        )
+    }
+
+    "Automatic testing & logging for various implementations" {
+        val binarySequenceGenerator = true
+        val generalFunction = GeneralFunction(
+            ln = if (binarySequenceGenerator) goldenLn else testingLn,
+            sin = if (binarySequenceGenerator) goldenSin else testingSin,
+            log2 = if (binarySequenceGenerator) goldenLog2 else testingLog2,
+            log3 = if (binarySequenceGenerator) goldenLog3 else testingLog3,
+            log5 = if (binarySequenceGenerator) goldenLog5 else testingLog5,
+            log10 = if (binarySequenceGenerator) goldenLog10 else testingLog10,
+            cos = if (binarySequenceGenerator) goldenCos else testingCos,
+            csc = if (binarySequenceGenerator) goldenCsc else testingCsc,
         )
     }
 })
