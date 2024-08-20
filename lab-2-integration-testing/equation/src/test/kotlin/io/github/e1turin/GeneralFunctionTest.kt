@@ -98,7 +98,7 @@ class GeneralFunctionTest : StringSpec({
         )
     }
 
-    "Automatic testing & logging for various implementations" {
+    "Automatic testing & logging diff for various implementations" {
         for (i in 1..<1.shl(8)) {
             val stringMask = i.toUInt().toString(radix = 2).padStart(8, '0')
 
