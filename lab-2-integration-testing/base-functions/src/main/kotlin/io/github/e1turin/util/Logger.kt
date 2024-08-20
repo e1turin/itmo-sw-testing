@@ -56,7 +56,7 @@ public fun logCompleteFunctionToCsv(
         step = RANGE_INSPECT_STEP,
         functionName = functionName,
         function = function,
-        appendToExistingFile = false,
+        appendToExistingFile = true,
         printHeader = false
     )
     logToCsv(

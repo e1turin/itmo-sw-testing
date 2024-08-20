@@ -45,6 +45,17 @@ class GeneralFunctionTest : StringSpec({
     val testingCos = { x: Double -> io.github.e1turin.trigonometric.cos(x, ERROR_RATE) }
     val testingCsc = { x: Double -> io.github.e1turin.trigonometric.csc(x, ERROR_RATE) }
 
+    fun createGeneralFunction(booleanMask: List<Boolean>) = GeneralFunction(
+        ln = if (booleanMask[0]) goldenLn else testingLn,
+        sin = if (booleanMask[1]) goldenSin else testingSin,
+        log2 = if (booleanMask[2]) goldenLog2 else testingLog2,
+        log3 = if (booleanMask[3]) goldenLog3 else testingLog3,
+        log5 = if (booleanMask[4]) goldenLog5 else testingLog5,
+        log10 = if (booleanMask[5]) goldenLog10 else testingLog10,
+        cos = if (booleanMask[6]) goldenCos else testingCos,
+        csc = if (booleanMask[7]) goldenCsc else testingCsc,
+    )
+
     "Hand test strange values" {
         val func = GeneralFunction()
         func(1.0) shouldBe Double.NaN
@@ -88,16 +99,24 @@ class GeneralFunctionTest : StringSpec({
     }
 
     "Automatic testing & logging for various implementations" {
-        val binarySequenceGenerator = true
-        val generalFunction = GeneralFunction(
-            ln = if (binarySequenceGenerator) goldenLn else testingLn,
-            sin = if (binarySequenceGenerator) goldenSin else testingSin,
-            log2 = if (binarySequenceGenerator) goldenLog2 else testingLog2,
-            log3 = if (binarySequenceGenerator) goldenLog3 else testingLog3,
-            log5 = if (binarySequenceGenerator) goldenLog5 else testingLog5,
-            log10 = if (binarySequenceGenerator) goldenLog10 else testingLog10,
-            cos = if (binarySequenceGenerator) goldenCos else testingCos,
-            csc = if (binarySequenceGenerator) goldenCsc else testingCsc,
-        )
+        for (i in 1..<1.shl(8)) {
+            val stringMask = i.toUInt().toString(radix = 2).padStart(8, '0')
+
+            val file = File("src/test/resources/integrated/GeneralFunction_integration_diff=${stringMask}.csv")
+                .also { it.parentFile.mkdirs() }
+                .also { it.createNewFile() }
+
+            val booleanMask = stringMask.map { it == '1' }
+
+            val generalFunctionImpl = createGeneralFunction(booleanMask)
+
+            val diff = { x: Double -> generalFunctionImpl(x) - goldenGeneralFunction(x) }
+
+            logCompleteFunctionToCsv(
+                file = file,
+                functionName = "diff_$stringMask",
+                function = diff
+            )
+        }
     }
 })
