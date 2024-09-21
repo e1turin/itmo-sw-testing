@@ -14,5 +14,5 @@ abstract class FandomPage(
     fun title(): String? = driver.title
     fun open(): Unit = driver.get(siteUrl)
 
-    abstract fun status(): Status
+    abstract fun status(): PageStatus
 }

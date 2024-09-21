@@ -7,5 +7,5 @@ const val fandomMainPageUrl = "https://www.fandom.com/"
 class FandomMainPage(driver: WebDriver): FandomPage(driver, fandomMainPageUrl) {
     private val expectedTitle: String = "Fandom"
 
-    override fun status(): Status = Status.from(title() == expectedTitle)
+    override fun status(): PageStatus = pageIsCurrentIf(title() == expectedTitle)
 }
