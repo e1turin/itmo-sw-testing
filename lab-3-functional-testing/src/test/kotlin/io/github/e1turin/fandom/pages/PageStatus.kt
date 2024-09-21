@@ -7,4 +7,4 @@ sealed interface PageStatus {
 object CurrentPage: PageStatus
 object NotCurrentPage: PageStatus
 
-fun pageIsCurrentIf(assertion: Boolean) = if (assertion) CurrentPage else NotCurrentPage
+fun onThisPageIf(assertion: Boolean) = if (assertion) CurrentPage else NotCurrentPage
