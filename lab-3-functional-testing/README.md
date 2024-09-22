@@ -84,3 +84,19 @@ Selenide выглядит слишком сложным для лаборато�
   по [ссылке](https://kotest.io/docs/next/framework/project-config.html#runtime-detection).
 
 - Нашел интересную подборку информации по работе с Selenium: https://kreisfahrer.gitbooks.io/selenium-webdriver
+
+- Kotest дает удобную возможность писать код в лямбдах и делать "вложенные" тесты, но при этом становится трудно
+  выносить начальную конфигурацию в отдельный класс и делать контекстные функции расширения потому, что есть только
+  локальные переменные, которые инициализируются из вложенных лямбд:
+  ```kotlin
+  class TestSuite: StringSpec({
+    lateinit var driver: WebDriver // not class member
+  
+    fun By.find(): WebElement = driver.findElement(this) // need to declare everywhere
+    "Test case" {
+      PageObject.webElementSelector.find().click()
+      //                           ^ use extension fun here  
+    }
+  })
+  ```
+  

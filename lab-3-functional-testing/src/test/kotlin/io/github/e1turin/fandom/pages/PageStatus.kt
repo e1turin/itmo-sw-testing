@@ -1,9 +1,6 @@
 package io.github.e1turin.fandom.pages
 
-sealed interface PageStatus {
-    fun and(assertion: Boolean) = if (this == CurrentPage && assertion) CurrentPage else NotCurrentPage
-}
-
+sealed interface PageStatus
 object CurrentPage: PageStatus
 object NotCurrentPage: PageStatus
 

@@ -1,20 +1,20 @@
 package io.github.e1turin.fandom
 
-import io.kotest.core.spec.AfterEach
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.firefox.FirefoxDriver
+import java.time.Duration
+
+fun WebDriver.setup() {
+    with(manage()) {
+        timeouts().implicitlyWait(Duration.ofSeconds(2))
+    }
+}
 
 fun setupChromeWebDriver() = ChromeDriver().apply {
     setup()
 }
 
-fun WebDriver.setup() {
-    // setup WebDriver
-}
-
-fun afterEachTemplate(driver: WebDriver, also: (() -> Unit)? = null): AfterEach {
-    return {
-        driver.quit()
-        also?.invoke()
-    }
+fun setupFirefoxWebDriver() = FirefoxDriver().apply {
+    setup()
 }
