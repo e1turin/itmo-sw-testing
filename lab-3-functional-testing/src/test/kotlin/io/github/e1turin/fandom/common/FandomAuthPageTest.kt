@@ -5,10 +5,8 @@ import io.github.e1turin.fandom.getFandomProfilePassword
 import io.github.e1turin.fandom.pages.*
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.shouldBe
-import org.openqa.selenium.By
 import org.openqa.selenium.ElementNotInteractableException
 import org.openqa.selenium.WebDriver
-import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.ui.FluentWait
 import java.time.Duration
 
@@ -29,8 +27,6 @@ fun buildAuthPageTests(driverSetup: WebDriver) = stringSpec {
     afterTest {
         driver.quit()
     }
-
-    fun By.find(): WebElement = driver.findElement(this)
 
     fun onAuthPage(steps: FandomAuthPage.() -> Unit) {
         val authPage = FandomAuthPage(driver)

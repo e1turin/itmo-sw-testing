@@ -3,9 +3,7 @@ package io.github.e1turin.fandom.common
 import io.github.e1turin.fandom.pages.*
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.shouldBe
-import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
-import org.openqa.selenium.WebElement
 
 fun buildMainPageTests(driverSetup: WebDriver) = stringSpec {
     lateinit var driver: WebDriver
@@ -24,8 +22,6 @@ fun buildMainPageTests(driverSetup: WebDriver) = stringSpec {
     afterTest {
         driver.quit()
     }
-
-    fun By.find(): WebElement = driver.findElement(this)
 
     fun onMainPage(steps: FandomMainPage.() -> Unit) {
         val mainPage = FandomMainPage(driver)
