@@ -1,8 +1,10 @@
 package io.github.e1turin.fandom.pages
 
+import io.kotest.property.arbitrary.ByteShrinker
 import org.openqa.selenium.By
 import org.openqa.selenium.InvalidArgumentException
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.PageFactory
 
 abstract class FandomPage(
@@ -27,11 +29,17 @@ abstract class FandomPage(
         val startWiki: By = By.xpath("//a[contains(@href, 'createnewwiki')]")
     }
 
+    val signInButton: By = By.xpath("//*[@id=\"global-sign-in-link\"]")
+
+    protected fun By.find(): WebElement = driver.findElement(this)
+
     fun title(): String = driver.title ?: ""
     fun open(): Unit = siteUrl?.let { driver.get(it) }
         ?: throw InvalidArgumentException("The URL of the web page site to open is not specified")
 
-    fun goToHome() = driver.findElement(Navigation.home).click()
-    fun openSearchBar() = driver.findElement(Navigation.search).click()
-    fun createNewWiki() = driver.findElement(Navigation.startWiki).click()
+    fun goToHome() = Navigation.home.find().click()
+    fun openSearchBar() = Navigation.search.find().click()
+    fun createNewWiki() = Navigation.startWiki.find().click()
+
+    fun startSignIn() = signInButton.find().click()
 }
