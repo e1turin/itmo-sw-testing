@@ -66,10 +66,8 @@ fun buildTestSuite(driverSetup: WebDriver) = stringSpec {
     "Open search bar and start searching" {
         val someSearchInputText = "kek"
         onMainPage {
-            FandomPage.Navigation.search.find().click()
-            FandomPage.Navigation.searchBarInput.find().apply {
-                sendKeys(someSearchInputText, "\n")
-            }
+            openSearchBar()
+            search(someSearchInputText)
         }
         val searchResultPage = FandomSearchResultPage(driver)
         searchResultPage.status() shouldBe CurrentPage

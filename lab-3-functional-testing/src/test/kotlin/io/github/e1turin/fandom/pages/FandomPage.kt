@@ -1,6 +1,5 @@
 package io.github.e1turin.fandom.pages
 
-import io.kotest.property.arbitrary.ByteShrinker
 import org.openqa.selenium.By
 import org.openqa.selenium.InvalidArgumentException
 import org.openqa.selenium.WebDriver
@@ -21,11 +20,6 @@ abstract class FandomPage(
         val home: By = By.xpath("//a[@class='global-navigation__logo']")
         val search: By = By.xpath("/html/body/div[2]/div[1]/nav/a[2]")
         val searchBarInput: By = By.cssSelector(".search-input")
-        val wikis: By = By.xpath("//div[@data-tracking-label='link.wikis']")
-        val wikisExploreWikis: By = By.cssSelector(
-            "div.global-navigation__link > div:nth-child(2) >"
-                    + " ul:nth-child(1) > li:nth-child(1) > a:nth-child(1)"
-        )
         val startWiki: By = By.xpath("//a[contains(@href, 'createnewwiki')]")
     }
 
@@ -39,6 +33,8 @@ abstract class FandomPage(
 
     fun goToHome() = Navigation.home.find().click()
     fun openSearchBar() = Navigation.search.find().click()
+    fun search(vararg query: String) = Navigation.searchBarInput.find()
+        .sendKeys(*query, "\n")
     fun createNewWiki() = Navigation.startWiki.find().click()
 
     fun startSignIn() = signInButton.find().click()

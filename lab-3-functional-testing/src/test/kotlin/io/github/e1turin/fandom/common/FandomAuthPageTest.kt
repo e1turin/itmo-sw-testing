@@ -10,7 +10,6 @@ import org.openqa.selenium.ElementNotInteractableException
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.ui.FluentWait
-import org.openqa.selenium.support.ui.Wait
 import java.time.Duration
 
 
@@ -32,6 +31,7 @@ fun buildAuthPageTests(driverSetup: WebDriver) = stringSpec {
     }
 
     fun By.find(): WebElement = driver.findElement(this)
+
     fun onAuthPage(steps: FandomAuthPage.() -> Unit) {
         val authPage = FandomAuthPage(driver)
         with(authPage) {
@@ -40,6 +40,7 @@ fun buildAuthPageTests(driverSetup: WebDriver) = stringSpec {
             steps()
         }
     }
+
     fun onSomePage(steps: FandomPage.() -> Unit) {
         with(someFandomPage) {
             open()
