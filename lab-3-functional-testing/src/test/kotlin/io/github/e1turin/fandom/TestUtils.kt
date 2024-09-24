@@ -7,7 +7,7 @@ import java.time.Duration
 
 fun WebDriver.setup() {
     with(manage()) {
-        timeouts().implicitlyWait(Duration.ofSeconds(2))
+        timeouts().implicitlyWait(Duration.ofSeconds(5))
     }
 }
 
@@ -19,8 +19,8 @@ fun setupFirefoxWebDriver() = FirefoxDriver().apply {
     setup()
 }
 
-const val fandomProfileLoginEnvKey = "fandom-login"
-const val fandomProfilePasswordEnvKey = "fandom-password"
+const val fandomProfileLoginEnvKey = "fandom_auth_login"
+const val fandomProfilePasswordEnvKey = "fandom_auth_password"
 
 fun getFandomProfileLogin(): String {
     return System.getenv(fandomProfileLoginEnvKey)

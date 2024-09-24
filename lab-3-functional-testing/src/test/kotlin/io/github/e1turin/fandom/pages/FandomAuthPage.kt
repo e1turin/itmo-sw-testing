@@ -11,7 +11,7 @@ class FandomAuthPage(driver:WebDriver): FandomPage(driver, fandomAuthPageUrl) {
 
     val loginInput: By = By.xpath("//*[@id=\"identifier\"]")
     val passwordInput: By = By.xpath("//*[@id=\"password\"]")
-    val signInFormButton: By = By.xpath("//*[@id=\"method\"]")
+    val signInFormButton: By = By.xpath("//*[@id=\"method\"]/parent::div") // interactable is not button but parent div
 
     fun enterLogin(login: String) = loginInput.find().sendKeys(login)
     fun enterPassword(password: String) = passwordInput.find().sendKeys(password)

@@ -6,8 +6,13 @@ import io.github.e1turin.fandom.pages.*
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.shouldBe
 import org.openqa.selenium.By
+import org.openqa.selenium.ElementNotInteractableException
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
+import org.openqa.selenium.support.ui.FluentWait
+import org.openqa.selenium.support.ui.Wait
+import java.time.Duration
+
 
 fun buildAuthPageTests(driverSetup: WebDriver) = stringSpec {
     lateinit var driver: WebDriver
@@ -49,10 +54,28 @@ fun buildAuthPageTests(driverSetup: WebDriver) = stringSpec {
             onAuthPage {
                 enterLogin(getFandomProfileLogin())
                 enterPassword(getFandomProfilePassword())
-                hitSignInButton()
-            }
-            status() shouldBe CurrentPage
-        }
 
+                FluentWait(driver)
+                    .withTimeout(Duration.ofSeconds(5))
+                    .pollingEvery(Duration.ofMillis(300))
+                    .ignoring(ElementNotInteractableException::class.java)
+                    .until<Boolean> {
+                        hitSignInButton()
+                        true
+                    }
+            }
+            // strange behaviour in chrome under selenium driver, redirects to main page:
+            status() shouldBe NotCurrentPage
+        }
+        val mainPage = FandomMainPage(driver)
+
+        FluentWait(driver)
+            .withTimeout(Duration.ofSeconds(5))
+            .pollingEvery(Duration.ofMillis(300))
+            .until<Boolean> {
+                mainPage.status() == CurrentPage
+            }
+
+        mainPage.status() shouldBe CurrentPage
     }
 }
