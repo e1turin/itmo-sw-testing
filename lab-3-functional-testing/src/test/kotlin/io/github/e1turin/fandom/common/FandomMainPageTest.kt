@@ -7,7 +7,7 @@ import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
 
-fun buildTestSuite(driverSetup: WebDriver) = stringSpec {
+fun buildMainPageTests(driverSetup: WebDriver) = stringSpec {
     lateinit var driver: WebDriver
     lateinit var someFandomPage: FandomPage
 
