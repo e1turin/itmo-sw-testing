@@ -22,7 +22,8 @@ dependencies {
     testImplementation("io.kotest:kotest-property:$kotestVersion")
     testImplementation("io.kotest:kotest-framework-datatest:$kotestVersion")
 
-    testImplementation("org.seleniumhq.selenium:selenium-java:4.24.0")
+    val seleniumVersion = "4.25.0"
+    testImplementation("org.seleniumhq.selenium:selenium-java:$seleniumVersion")
 }
 
 tasks.test {
