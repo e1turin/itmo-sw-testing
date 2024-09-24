@@ -4,7 +4,6 @@ import io.github.e1turin.fandom.common.buildTestSuite
 import io.github.e1turin.fandom.setupChromeWebDriver
 import io.kotest.core.spec.style.StringSpec
 
-
-object FandomChromeMainPageTest : StringSpec({
+class FandomChromeMainPageTest : StringSpec({
     include(buildTestSuite(driverSetup = setupChromeWebDriver()))
 })

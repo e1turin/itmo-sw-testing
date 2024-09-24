@@ -11,14 +11,15 @@ import org.openqa.selenium.WebElement
 
 fun buildAuthPageTests(driverSetup: WebDriver) = stringSpec {
     lateinit var driver: WebDriver
+    lateinit var someFandomPage: FandomPage
 
     val randomSiteURL = "https://matrix.fandom.com/wiki/Neo"
-    val someFandomPage = object : FandomPage(driver, randomSiteURL) {
-        override fun status(): PageStatus = onThisPageIf(false)
-    }
 
     beforeTest {
         driver = driverSetup
+        someFandomPage = object : FandomPage(driver, randomSiteURL) {
+            override fun status(): PageStatus = onThisPageIf(title().contains("Neo"))
+        }
     }
 
     afterTest {
