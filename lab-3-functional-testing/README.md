@@ -111,4 +111,6 @@ Selenide выглядит слишком сложным для лаборато�
   [kotest_filter_specs и kotest_filter_tests](https://kotest.io/docs/framework/conditional/conditional-tests-with-gradle.html#kotest-specific-test-filtering)
   - **окружения**, не system properties! Почему-то опции для JVM `-Dkotest.filter.specs='...'` и
     `-Dkotest.filter.tests='...'` не работают как ожидается.
-  
+
+- Оказалось, что на сайте кнопка для отправки формы входа в аккаунт неинтерактивная, не кликабельная. Зато div окружающий ее – да
+  - https://www.w3schools.com/xml/xpath_axes.asp
