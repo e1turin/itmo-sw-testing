@@ -58,4 +58,77 @@
 9. Стресс-тестирование - основные понятия, виды стресс-сценариев.
 10. Стресс-тестирование ПО. Виды стресс-тестов ПО. Тестирование ёмкости.
 
+- - -
+
+# Комментарии по выполнению ЛР
+
+Для получения доступа к серверу нужно использовать кафедральный VPN или 
+пробросить порты через ssh:
+
+```sh
+ssh -N -L 8080:stload.se.ifmo.ru:8080 username@helios.se.ifmo.ru -p 2222
+```
+- `-N` – чтобы не запускать команду, только пробросить
+
+JMeter скачал с сайта, распаковал в папку и запускается он 
+- либо из консоли как `java -jar path/to/jmeter-dir/bin/ApacheJmeter.jar`,
+- либо скриптом `jmeter.sh`, `jmeter.bat`, `jmeter` методом тыка (на него)
+  или из консоли.
+
+JMeter позволяет создавать конфиг для тестового плана из GUI, которые сохраняются
+в виде XML в файлах `.jmx` (аля стандарт). Запускать же тестовые сценарии
+рекомендуется из консоли, об этом пишут в консоли при запуске приложения:
+
+```
+================================================================================
+Don't use GUI mode for load testing !, only for Test creation and Test debugging.
+For load testing, use CLI Mode (was NON GUI):
+   jmeter -n -t [jmx file] -l [results file] -e -o [Path to web report folder]
+& increase Java Heap to meet your test requirements:
+   Modify current env variable HEAP="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m" in the jmeter batch file
+Check : https://jmeter.apache.org/usermanual/best-practices.html
+================================================================================
+```
+
+По всей видимости в JMeter может быть только один тестовый план – неприятное ограничение.
+
+Чтобы было по красоте, добавлю описание ко всем элементам, попробую вынести
+всё что можно в переменные. Спойлер – всё получилось! Продолжение смотри в источнике...
+- https://jmeter.apache.org/usermanual/functions.html
+- https://dev.to/adamleszko/guide-to-handling-variables-in-jmeter-3hkb
+
+**Замечание 1.** JMeter ловит исключение при попытке записать файл с именем
+содержащим `:`, т.к. NTFS не разрешает такие имена ¯\\_(ツ)_/¯. Для решения 
+проблемы сохраню конфиг с более простым именем.
+- Ошибки отмечаются в верхнем правом углу (желтый треугольный знак опасности)
+
+В ноде тестового плана добавим ноду с "User Defined Variables", где определим
+все интересующие нас переменные:
+
+| Name | Value | Description |
+| --- | --- | --- |
+| `THREAD_GROUP_RUMPUP_PERIOD`    |	120	        | |
+| `THREAD_GROUT_LOOP_COUNT`       |	20	        | |
+| `MAX_NUM_PARALLEL_USERS`        |	14	        | "Максимальное количество параллельных пользователей" |
+| `AVG_USER_LOAD_RPM`             |	20          | "Средняя нагрузка, формируемая одним пользователем" |
+| `MAX_REQ_PROCESSING_TIME_MS`    |	690	        | "Максимально допустимое время обработки запроса" |
+| `SERVER_NAME`                   |	localhost   | Порт проброшен на localhost |
+| `SERVER_PORT`                   |	8080	    | Номер проброшенного порта |
+| `GET_PARAM_TOKEN`               |	492521201	| Значение токена из GET-запроса |
+| `GET_PARAM_USER`                |	2129818211	| Значение идентификатора пользователя из GET-запроса |
+
+Так понимаю `TREAD_GROUP_RUMPUP_PERIOD` и `TREAD_GROUT_LOOP_COUNT` не задаются
+по заданию и нужно придумать как их выбрать самому.
+
+Для отладки конфигурации удобно добавить вывод результатов в таблицу и на график: 
+
+- Thread Group > Add > Listener > View Results in Table
+- Thread Group > Add > Listener > Graph Results
+
+Осталось запустить нагрузочное тестирование из консоли:
+
+```sh
+jmeter.bat -n -t test-plan/LoadTestPlan.jmx -l load-test/results.log -e -o load-test/report
+```
+
 
