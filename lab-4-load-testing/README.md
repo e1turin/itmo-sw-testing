@@ -120,10 +120,19 @@ Check : https://jmeter.apache.org/usermanual/best-practices.html
 Так понимаю `TREAD_GROUP_RUMPUP_PERIOD` и `TREAD_GROUT_LOOP_COUNT` не задаются
 по заданию и нужно придумать как их выбрать самому.
 
+В каждой конфигурации Tread Group используется такой набор функциональных нод:
+
+- HTTP Request (Thread Group > Add > Sampler) – отправка HTTP-запроса с
+  параметрами на указаный URL (`GET_PARAM_TOKEN`, `GET_PARAM_USER`),
+- Duration Assertion (Thread Group > Add > Assertionas) – ограничитель на время
+  выполнения запроса (`MAX_REQ_PROCESSING_TIME_MS`),
+- Constant Throughput Timer (Thread Group > Add > Timer) – ограничение
+  количества запросов в минуту (`AVG_USER_LOAD_RPM`), рассчитанное для всех потоков в группе.
+
 Для отладки конфигурации удобно добавить вывод результатов в таблицу и на график: 
 
-- Thread Group > Add > Listener > View Results in Table
-- Thread Group > Add > Listener > Graph Results
+- View Results in Table (Thread Group > Add > Listener),
+- Graph Results (Thread Group > Add > Listener).
 
 Осталось запустить нагрузочное тестирование из консоли:
 
@@ -131,4 +140,20 @@ Check : https://jmeter.apache.org/usermanual/best-practices.html
 jmeter.bat -n -t test-plan/LoadTestPlan.jmx -l load-test/results.log -e -o load-test/report
 ```
 
+На этапе отладки конфигурации тестирования уже видно, что 1 и 2 конфигурации не
+укладываются во временные ограничения `MAX_REQ_PROCESSING_TIME_MS` (у них
+задержка порядка 700-1000 мс), в то время как 3 конфигурация отвечает довольно
+живенько – 300 мс. Поэтому для дальнейшего стресс-тестирования предполагается
+взять именно 3 конфигурацию.
+
+В качестве стресс-нагрзки будет использоваться такая же конфигурация как и
+ранее, но с большим числом параллельно работающих пользователей и дополнительным ограничением в виде
+
+- Response Assertion (Thread Group > Add > Assertionas) – ограничитель на Response Cod равный 200.
+
+Запустим стресс-тестироввание из консоли:
+
+```sh
+jmeter.bat -n -t test-plan/StressTestPlan.jmx -l stress-test/results.log -e -o stress-test/report
+```
 

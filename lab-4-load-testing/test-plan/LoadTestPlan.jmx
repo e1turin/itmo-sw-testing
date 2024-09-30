@@ -26,7 +26,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request" enabled="true">
           <stringProp name="TestPlan.comments">URL первой конфигурации ($ 3800) - http://stload.se.ifmo.ru:8080?token=492521201&amp;user=2129818211&amp;config=1;</stringProp>
           <stringProp name="HTTPSampler.domain">${SERVER_NAME}</stringProp>
           <stringProp name="HTTPSampler.port">${SERVER_PORT}</stringProp>
@@ -66,7 +66,12 @@
           <stringProp name="DurationAssertion.duration">${MAX_REQ_PROCESSING_TIME_MS}</stringProp>
         </DurationAssertion>
         <hashTree/>
-        <ResultCollector guiclass="GraphVisualizer" testclass="ResultCollector" testname="Graph Results">
+        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+          <intProp name="calcMode">2</intProp>
+          <stringProp name="throughput">${AVG_USER_LOAD_RPM}</stringProp>
+        </ConstantThroughputTimer>
+        <hashTree/>
+        <ResultCollector guiclass="GraphVisualizer" testclass="ResultCollector" testname="Graph Results" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -103,7 +108,7 @@
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table">
+        <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -153,7 +158,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request" enabled="true">
           <stringProp name="TestPlan.comments">URL второй конфигурации ($ 4100) - http://stload.se.ifmo.ru:8080?token=492521201&amp;user=2129818211&amp;config=2;</stringProp>
           <stringProp name="HTTPSampler.domain">${SERVER_NAME}</stringProp>
           <stringProp name="HTTPSampler.port">${SERVER_PORT}</stringProp>
@@ -189,9 +194,14 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion">
+        <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
           <stringProp name="DurationAssertion.duration">${MAX_REQ_PROCESSING_TIME_MS}</stringProp>
         </DurationAssertion>
+        <hashTree/>
+        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+          <intProp name="calcMode">2</intProp>
+          <stringProp name="throughput">${AVG_USER_LOAD_RPM}</stringProp>
+        </ConstantThroughputTimer>
         <hashTree/>
         <ResultCollector guiclass="GraphVisualizer" testclass="ResultCollector" testname="Graph Results">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
@@ -320,7 +330,12 @@
           <stringProp name="DurationAssertion.duration">${MAX_REQ_PROCESSING_TIME_MS}</stringProp>
         </DurationAssertion>
         <hashTree/>
-        <ResultCollector guiclass="GraphVisualizer" testclass="ResultCollector" testname="Graph Results">
+        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+          <intProp name="calcMode">2</intProp>
+          <stringProp name="throughput">${AVG_USER_LOAD_RPM}</stringProp>
+        </ConstantThroughputTimer>
+        <hashTree/>
+        <ResultCollector guiclass="GraphVisualizer" testclass="ResultCollector" testname="Graph Results" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -357,7 +372,7 @@
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table">
+        <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
