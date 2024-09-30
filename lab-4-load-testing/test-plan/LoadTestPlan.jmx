@@ -10,8 +10,6 @@
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
-      <boolProp name="TestPlan.functional_mode">false</boolProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Hardware Config 1">
@@ -26,7 +24,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Config 1: HTTP Request">
           <stringProp name="TestPlan.comments">URL первой конфигурации ($ 3800) - http://stload.se.ifmo.ru:8080?token=492521201&amp;user=2129818211&amp;config=1;</stringProp>
           <stringProp name="HTTPSampler.domain">${SERVER_NAME}</stringProp>
           <stringProp name="HTTPSampler.port">${SERVER_PORT}</stringProp>
@@ -62,11 +60,11 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion">
+        <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
           <stringProp name="DurationAssertion.duration">${MAX_REQ_PROCESSING_TIME_MS}</stringProp>
         </DurationAssertion>
         <hashTree/>
-        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
           <intProp name="calcMode">2</intProp>
           <stringProp name="throughput">${AVG_USER_LOAD_RPM}</stringProp>
         </ConstantThroughputTimer>
@@ -146,7 +144,7 @@
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Hardware Config 2">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Hardware Config 2" enabled="true">
         <stringProp name="TestPlan.comments">2 конфигурация ($ 4100)</stringProp>
         <stringProp name="ThreadGroup.num_threads">${MAX_NUM_PARALLEL_USERS}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${THREAD_GROUP_RUMPUP_PERIOD}</stringProp>
@@ -158,7 +156,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Config 2: HTTP Request" enabled="true">
           <stringProp name="TestPlan.comments">URL второй конфигурации ($ 4100) - http://stload.se.ifmo.ru:8080?token=492521201&amp;user=2129818211&amp;config=2;</stringProp>
           <stringProp name="HTTPSampler.domain">${SERVER_NAME}</stringProp>
           <stringProp name="HTTPSampler.port">${SERVER_PORT}</stringProp>
@@ -198,12 +196,12 @@
           <stringProp name="DurationAssertion.duration">${MAX_REQ_PROCESSING_TIME_MS}</stringProp>
         </DurationAssertion>
         <hashTree/>
-        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
           <intProp name="calcMode">2</intProp>
           <stringProp name="throughput">${AVG_USER_LOAD_RPM}</stringProp>
         </ConstantThroughputTimer>
         <hashTree/>
-        <ResultCollector guiclass="GraphVisualizer" testclass="ResultCollector" testname="Graph Results">
+        <ResultCollector guiclass="GraphVisualizer" testclass="ResultCollector" testname="Graph Results" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -240,7 +238,7 @@
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table">
+        <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -278,7 +276,7 @@
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Hardware Config 3">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Hardware Config 3" enabled="true">
         <stringProp name="TestPlan.comments">3 конфигурация ($ 7200)</stringProp>
         <stringProp name="ThreadGroup.num_threads">${MAX_NUM_PARALLEL_USERS}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${THREAD_GROUP_RUMPUP_PERIOD}</stringProp>
@@ -290,7 +288,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Config 3: HTTP Request" enabled="true">
           <stringProp name="TestPlan.comments">URL третьей конфигурации ($ 7200) - http://stload.se.ifmo.ru:8080?token=492521201&amp;user=2129818211&amp;config=3;</stringProp>
           <stringProp name="HTTPSampler.domain">${SERVER_NAME}</stringProp>
           <stringProp name="HTTPSampler.port">${SERVER_PORT}</stringProp>
@@ -330,7 +328,7 @@
           <stringProp name="DurationAssertion.duration">${MAX_REQ_PROCESSING_TIME_MS}</stringProp>
         </DurationAssertion>
         <hashTree/>
-        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
           <intProp name="calcMode">2</intProp>
           <stringProp name="throughput">${AVG_USER_LOAD_RPM}</stringProp>
         </ConstantThroughputTimer>
@@ -414,12 +412,12 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="THREAD_GROUP_RUMPUP_PERIOD" elementType="Argument">
             <stringProp name="Argument.name">THREAD_GROUP_RUMPUP_PERIOD</stringProp>
-            <stringProp name="Argument.value">60</stringProp>
+            <stringProp name="Argument.value">30</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="THREAD_GROUT_LOOP_COUNT" elementType="Argument">
             <stringProp name="Argument.name">THREAD_GROUT_LOOP_COUNT</stringProp>
-            <stringProp name="Argument.value">20</stringProp>
+            <stringProp name="Argument.value">10</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="MAX_NUM_PARALLEL_USERS" elementType="Argument">

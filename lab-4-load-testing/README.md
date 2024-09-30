@@ -124,7 +124,9 @@ Check : https://jmeter.apache.org/usermanual/best-practices.html
 
 - HTTP Request (Thread Group > Add > Sampler) – отправка HTTP-запроса с
   параметрами на указаный URL (`GET_PARAM_TOKEN`, `GET_PARAM_USER`),
-- Duration Assertion (Thread Group > Add > Assertionas) – ограничитель на время
+    - > им стоит дать уникальное имя, чтобы отличать в отчете запросы семплера
+      для разных конфигураций
+- Duration Assertion (Thread Group > Add > Assertions) – ограничитель на время
   выполнения запроса (`MAX_REQ_PROCESSING_TIME_MS`),
 - Constant Throughput Timer (Thread Group > Add > Timer) – ограничение
   количества запросов в минуту (`AVG_USER_LOAD_RPM`), рассчитанное для всех потоков в группе.
@@ -137,6 +139,7 @@ Check : https://jmeter.apache.org/usermanual/best-practices.html
 Осталось запустить нагрузочное тестирование из консоли:
 
 ```sh
+mkdir load-test
 jmeter.bat -n -t test-plan/LoadTestPlan.jmx -l load-test/results.log -e -o load-test/report
 ```
 
@@ -151,9 +154,17 @@ jmeter.bat -n -t test-plan/LoadTestPlan.jmx -l load-test/results.log -e -o load-
 
 - Response Assertion (Thread Group > Add > Assertionas) – ограничитель на Response Cod равный 200.
 
+Чтобы найти крайнее число RPS, имеет смысл использовать увеличивающуюся
+нагрузку, которую можно моделировать разными способами: c помощью подбора Rump
+Up параметра или с помощью плагина [Stepping Thread Group](https://jmeter-plugins.org/wiki/SteppingThreadGroup/)
+- https://stackoverflow.com/questions/28239060/increase-users-in-jmeter
+- и возможно нужно убрать ограничение Constant Throughput Timer
+
 Запустим стресс-тестироввание из консоли:
 
 ```sh
+mkdir stress-test
 jmeter.bat -n -t test-plan/StressTestPlan.jmx -l stress-test/results.log -e -o stress-test/report
 ```
+
 
