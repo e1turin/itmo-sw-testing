@@ -23,6 +23,7 @@ fun buildMainPageTests(driverSetup: WebDriver) = stringSpec {
         driver.quit()
     }
 
+    // TODO: generalize function with type parameter
     fun onMainPage(steps: FandomMainPage.() -> Unit) {
         val mainPage = FandomMainPage(driver)
         with(mainPage) {
